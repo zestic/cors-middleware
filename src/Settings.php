@@ -26,8 +26,9 @@ SOFTWARE.
 
 declare(strict_types=1);
 
-namespace Tuupola\Middleware;
+namespace Zestic\Middleware;
 
+use Override;
 use Neomerx\Cors\Strategies\Settings as BaseSettings;
 
 class Settings extends BaseSettings
@@ -35,6 +36,7 @@ class Settings extends BaseSettings
     /** @var array<string> */
     private $allowedOrigins = [];
 
+    #[Override]
     public function setAllowedOrigins(array $origins): BaseSettings
     {
         $this->allowedOrigins = $origins;
@@ -42,6 +44,7 @@ class Settings extends BaseSettings
         return parent::setAllowedOrigins($origins);
     }
 
+    #[Override]
     public function isRequestOriginAllowed(string $requestOrigin): bool
     {
         $isAllowed = parent::isRequestOriginAllowed($requestOrigin);

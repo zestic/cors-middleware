@@ -25,13 +25,13 @@ SOFTWARE.
 */
 
 /**
- * @see       https://github.com/tuupola/cors-middleware
+ * @see       https://github.com/zestic/cors-middleware
  * @see       https://github.com/neomerx/cors-psr7
  * @see       https://www.w3.org/TR/cors/
  * @license   https://www.opensource.org/licenses/mit-license.php
  */
 
-namespace Tuupola\Middleware;
+namespace Zestic\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

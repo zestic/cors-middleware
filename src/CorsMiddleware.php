@@ -25,7 +25,7 @@ SOFTWARE.
 */
 
 /**
- * @see       https://github.com/tuupola/cors-middleware
+ * @see       https://github.com/zestic/cors-middleware
  * @see       https://github.com/neomerx/cors-psr7
  * @see       https://www.w3.org/TR/cors/
  * @license   https://www.opensource.org/licenses/mit-license.php
@@ -33,7 +33,7 @@ SOFTWARE.
 
 declare(strict_types=1);
 
-namespace Tuupola\Middleware;
+namespace Zestic\Middleware;
 
 use Closure;
 use Neomerx\Cors\Analyzer as CorsAnalyzer;
@@ -45,17 +45,18 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 use Tuupola\Http\Factory\ResponseFactory;
-use Tuupola\Middleware\Settings as CorsSettings;
+use Tuupola\Middleware\DoublePassTrait;
+use Zestic\Middleware\Settings as CorsSettings;
 
 final class CorsMiddleware implements MiddlewareInterface
 {
     use DoublePassTrait;
 
     /** @var int */
-    private const PORT_HTTP = 80;
+    private const int PORT_HTTP = 80;
 
     /** @var int */
-    private const PORT_HTTPS = 443;
+    private const int PORT_HTTPS = 443;
 
     /** @var LoggerInterface|null */
     private $logger;

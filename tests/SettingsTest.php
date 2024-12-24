@@ -26,7 +26,7 @@ SOFTWARE.
 
 declare(strict_types=1);
 
-namespace Tuupola\Middleware;
+namespace Zestic\Middleware;
 
 use Generator;
 use PHPUnit\Framework\TestCase;

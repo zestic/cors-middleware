@@ -1,27 +1,27 @@
 # PSR-7 and PSR-15 CORS Middleware
 
-This middleware implements [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). It supports both PSR-7 style doublepass and PSR-15 middleware standards. It has been tested  with [Slim Framework](http://www.slimframework.com/) and [Zend Expressive](https://zendframework.github.io/zend-expressive/). Internally the middleware uses [neomerx/cors-psr7](https://github.com/neomerx/cors-psr7) library for heavy lifting.
+This middleware implements [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). It supports both PSR-7 style doublepass and PSR-15 middleware standards. It has been tested with [Laminas Mezzio](https://docs.mezzio.dev/mezzio/). Internally the middleware uses [neomerx/cors-psr7](https://github.com/neomerx/cors-psr7) library for heavy lifting.
 
-[![Latest Version](https://img.shields.io/packagist/v/tuupola/cors-middleware.svg?style=flat-square)](https://packagist.org/packages/tuupola/cors-middleware)
-[![Packagist](https://img.shields.io/packagist/dm/tuupola/cors-middleware.svg)](https://packagist.org/packages/tuupola/cors-middleware)
+[![Latest Version](https://img.shields.io/packagist/v/zestic/cors-middleware.svg?style=flat-square)](https://packagist.org/packages/zestic/cors-middleware)
+[![Packagist](https://img.shields.io/packagist/dm/zestic/cors-middleware.svg)](https://packagist.org/packages/zestic/cors-middleware)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/tuupola/cors-middleware/tests.yml?branch=master&style=flat-square)](https://github.com/tuupola/cors-middleware/actions)
-[![Coverage](https://img.shields.io/codecov/c/github/tuupola/cors-middleware.svg?style=flat-square)](https://codecov.io/github/tuupola/cors-middleware)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/zestic/cors-middleware/tests.yml?branch=master&style=flat-square)](https://github.com/zestic/cors-middleware/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/zestic/cors-middleware.svg?style=flat-square)](https://codecov.io/github/zestic/cors-middleware)
 
 ## Install
 
 Install using [composer](https://getcomposer.org/).
 
 ``` bash
-$ composer require tuupola/cors-middleware
+$ composer require zestic/cors-middleware
 ```
 
 ## Usage
 
-Documentation assumes you have working knowledge of CORS. There are no mandatory parameters. If you are using Zend Expressive skeleton middlewares are added to file called `config/pipeline.php`. Note that you must disable the default `ImplicitOptionsMiddleware` for this middleware to work.
+Documentation assumes you have working knowledge of CORS. There are no mandatory parameters. If you are using Laminas Mezzio the skeleton middlewares are added to file called `config/pipeline.php`. Note that you must disable the default `ImplicitOptionsMiddleware` for this middleware to work.
 
 ```php
-use Tuupola\Middleware\CorsMiddleware;
+use Zestic\Middleware\CorsMiddleware;
 
 #$app->pipe(ImplicitOptionsMiddleware::class);
 $app->pipe(CorsMiddleware::class);
@@ -30,7 +30,7 @@ $app->pipe(CorsMiddleware::class);
 Slim Framework does not have specified config files. Otherwise adding the middleware is similar with previous.
 
 ```php
-$app->add(new Tuupola\Middleware\CorsMiddleware);
+$app->add(new Zestic\Middleware\CorsMiddleware);
 ```
 
 Rest of the examples use Slim Framework.
@@ -38,7 +38,7 @@ Rest of the examples use Slim Framework.
 If called without any parameters the following defaults are used.
 
 ```php
-$app->add(new Tuupola\Middleware\CorsMiddleware([
+$app->add(new Zestic\Middleware\CorsMiddleware([
     "origin" => ["*"],
     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
     "headers.allow" => [],
@@ -65,7 +65,7 @@ However, you most likely want to change some of the defaults. For example if dev
 
 
 ```php
-$app->add(new Tuupola\Middleware\CorsMiddleware([
+$app->add(new Zestic\Middleware\CorsMiddleware([
     "origin" => ["*"],
     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
     "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since"],
@@ -112,7 +112,7 @@ Access-Control-Expose-Headers: Etag
 By default all origins are allowed. You can limit allowed origins by passing them as an array.
 
 ```php
-$app->add(new Tuupola\Middleware\CorsMiddleware([
+$app->add(new Zestic\Middleware\CorsMiddleware([
     "origin" => ["app-1.example.com", "app-2.example.com"]
 ]));
 ```
@@ -120,7 +120,7 @@ $app->add(new Tuupola\Middleware\CorsMiddleware([
 You can also use wildcards to define multiple origins at once. Wildcards are matched by using the [fnmatch()](https://www.php.net/manual/en/function.fnmatch.php) function.
 
 ```php
-$app->add(new Tuupola\Middleware\CorsMiddleware([
+$app->add(new Zestic\Middleware\CorsMiddleware([
     "origin" => ["*.example.com"]
 ]));
 ```
@@ -130,7 +130,7 @@ $app->add(new Tuupola\Middleware\CorsMiddleware([
 Methods can be passed either as an array or a callable which returns an array. Below example is for Zend Expressive where value of `methods` is dynamic depending on the requested route.
 
 ``` php
-use Tuupola\Middleware\CorsMiddleware;
+use Zestic\Middleware\CorsMiddleware;
 use Zend\Expressive\Router\RouteResult;
 
 $app->pipe(new CorsMiddleware([
@@ -147,7 +147,7 @@ Same thing for Slim 3. This assumes you have **not** defined the `OPTIONS` route
 
 ``` php
 use Fastroute\Dispatcher;
-use Tuupola\Middleware\CorsMiddleware;
+use Zestic\Middleware\CorsMiddleware;
 
 $app->add(
     new CorsMiddleware([
@@ -172,7 +172,7 @@ $logger = Monolog\Logger("slim");
 $rotating = new RotatingFileHandler(__DIR__ . "/logs/slim.log", 0, Logger::DEBUG);
 $logger->pushHandler($rotating);
 
-$app->add(new Tuupola\Middleware\CorsMiddleware([
+$app->add(new Zestic\Middleware\CorsMiddleware([
     "logger" => $logger,
 ]));
 ```
@@ -182,7 +182,7 @@ $app->add(new Tuupola\Middleware\CorsMiddleware([
 Error is called when CORS request fails. It receives last error message in arguments. This can be used for example to create `application/json` responses when CORS request fails.
 
 ``` php
-$app->add(new Tuupola\Middleware\CorsMiddleware([
+$app->add(new Zestic\Middleware\CorsMiddleware([
     "methods" => ["GET", "POST", "PUT"],
     "error" => function ($request, $response, $arguments) {
         $data["status"] = "error";
@@ -216,7 +216,7 @@ Content-Length: 83
 If your same-origin requests contain an unnecessary `Origin` header, they might get blocked in case the server origin is not among the allowed origins already. In this case you can use the optional `origin.server` parameter to specify the origin of the server.
 
 ``` php
-$app->add(new Tuupola\Middleware\CorsMiddleware([
+$app->add(new Zestic\Middleware\CorsMiddleware([
     "origin.server" => "https://example.com"
 ]));
 ```
@@ -231,16 +231,8 @@ HTTP/1.1 200 OK
 ```
 
 ## Testing
-
-You can run tests either manually or automatically on every code change. Automatic tests require [entr](http://entrproject.org/) to work.
-
 ``` bash
-$ make test
-```
-
-``` bash
-$ brew install entr
-$ make watch
+vendor/bin/phpunit
 ```
 
 ## Contributing
@@ -249,7 +241,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email tuupola@appelsiini.net instead of using the issue tracker.
+If you discover any security related issues, please email develop@zestic.com instead of using the issue tracker.
 
 ## License
 

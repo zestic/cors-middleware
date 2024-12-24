@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## [1.4.4] - 2024-12-24
+### Changes
+- PHP 8.3 is now the minimum requirement
+- Upgrade to `neomerx/cors-psr7:^3.0`
+- Updated namespace to Zestic
+
 ## [1.4.3](https://github.com/tuupola/cors-middleware/compare/1.4.2...1.4.3) - 2020-10-11
 ### Fixed
 - TSanitizedOptions causing PHPStan error ([#78](https://github.com/tuupola/cors-middleware/issues/78), [#79](https://github.com/tuupola/cors-middleware/pull/79)).
@@ -92,12 +98,12 @@ All notable changes to this project will be documented in this file, in reverse 
 - Methods setting can now be either an array or callable returning an array. This is useful if your framework makes it possible to retrieve defined methods for a given route.
 
     ```php
-    $app->add(new \Tuupola\Middleware\CorsMiddleware([
+    $app->add(new \Zestic\Middleware\CorsMiddleware([
         "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
     ]));
     ```
     ```php
-    $app->add(new \Tuupola\Middleware\CorsMiddleware([
+    $app->add(new \Zestic\Middleware\CorsMiddleware([
         "methods" => function(ServerRequestInterface $request) {
             /* Some logic to figure out allowed $methods. */
             return $methods;

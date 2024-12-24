@@ -1,5 +1,5 @@
 {
-    "name": "tuupola/cors-middleware",
+    "name": "zestic/cors-middleware",
     "description": "PSR-7 and PSR-15 CORS middleware",
     "keywords": [
         "middleware",
@@ -7,7 +7,7 @@
         "psr-7",
         "psr-15"
     ],
-    "homepage": "https://github.com/tuupola/cors-middleware",
+    "homepage": "https://github.com/zestic/cors-middleware",
     "license": "MIT",
     "authors": [
         {
@@ -21,8 +21,8 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.2|^8.0",
-        "neomerx/cors-psr7": "^2.0|^3.0",
+        "php": "^8.3",
+        "neomerx/cors-psr7": "^3.0",
         "psr/http-message": "^1.0.1|^2.0",
         "psr/http-server-middleware": "^1.0",
         "tuupola/callable-handler": "^1.0",
@@ -30,22 +30,22 @@
     },
     "autoload": {
         "psr-4": {
-            "Tuupola\\Middleware\\": "src"
+            "Zestic\\Middleware\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tuupola\\Middleware\\": "tests"
+            "Zestic\\Middleware\\": "tests"
         }
     },
     "require-dev": {
         "equip/dispatch": "^2.0",
-        "nyholm/psr7": "^1.5",
+        "nyholm/psr7": "^1.8",
         "overtrue/phplint": "^3.0",
-        "phpstan/phpstan": "^1.11",
-        "phpstan/phpstan-strict-rules": "^1.4",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^8.5.30|^9.0",
-        "rector/rector": "^0.14.0",
+        "rector/rector": "^2.0",
         "symplify/easy-coding-standard": "^11.1"
     }
 }
